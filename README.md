@@ -1,2 +1,3 @@
 # odin-calculator
-A simple web calculator with the four basic arithmetic operations (+ - / *)
+A simple web calculator with the four basic arithmetic operations (+ - / *).
+Final project for Odin Foundations course.
