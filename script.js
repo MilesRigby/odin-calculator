@@ -52,10 +52,21 @@ function addOperatorSymbol(operatorSymbol) {
 
 }
 
+// Evaluates the expression in the calculator number display, of the form "aOb" where a and b are numbers and O is an operator.
 function evaluateExpression() {
-    console.log("Evaluation not implemented")
-    expression = "4";
-    displayExpression();
+    if (expression.includes("+")) { 
+        operands = expression.split("+");
+        expression = operate(parseFloat(operands[0]), "+", parseFloat(operands[1]));
+    } else if (expression.includes("-")) { 
+        operands = expression.split("-");
+        expression = operate(parseFloat(operands[0]), "-", parseFloat(operands[1]));
+    } else if (expression.includes("*")) { 
+        operands = expression.split("*");
+        expression = operate(parseFloat(operands[0]), "*", parseFloat(operands[1]));
+    } else if (expression.includes("/")) { 
+        operands = expression.split("/");
+        expression = operate(parseFloat(operands[0]), "/", parseFloat(operands[1]));
+    } else { console.log("ERROR: INVALID OPERATOR IN evaluateExpression()") }
 }
 
 // displays current arithmetical expression to the number port
