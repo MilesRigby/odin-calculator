@@ -19,6 +19,15 @@ document.querySelectorAll(".operator")
         element.addEventListener('click', () =>  addOperatorSymbol(operators.split('').at(i)))
     });
 
+// Make "=" button evaluate the expression
+document.querySelector("#equals").addEventListener('click', () => {
+    // Check expression is of the form aOb where a and b are numbers and O is a valid operator
+    if (operators.split('').reduce((bool, operator) => bool || expression.slice(0,-1).includes(operator), false)) {
+        evaluateExpression();
+        displayExpression();
+    }
+})
+
 // Make the C button clear the number port
 document.querySelector("#clear")
     .addEventListener('click', () => {
@@ -28,7 +37,7 @@ document.querySelector("#clear")
 
 // Adds a numeral to the number port
 function addNumeral(numeral) {
-    expression = expression + numeral
+    expression = expression.toString() + numeral;
     displayExpression();
 }
 
@@ -56,16 +65,16 @@ function addOperatorSymbol(operatorSymbol) {
 function evaluateExpression() {
     if (expression.includes("+")) { 
         operands = expression.split("+");
-        expression = operate(parseFloat(operands[0]), "+", parseFloat(operands[1]));
+        expression = (operate(parseFloat(operands[0]), "+", parseFloat(operands[1]))).toString();
     } else if (expression.includes("-")) { 
         operands = expression.split("-");
-        expression = operate(parseFloat(operands[0]), "-", parseFloat(operands[1]));
+        expression = (operate(parseFloat(operands[0]), "-", parseFloat(operands[1]))).toString();
     } else if (expression.includes("*")) { 
         operands = expression.split("*");
-        expression = operate(parseFloat(operands[0]), "*", parseFloat(operands[1]));
+        expression = (operate(parseFloat(operands[0]), "*", parseFloat(operands[1]))).toString();
     } else if (expression.includes("/")) { 
         operands = expression.split("/");
-        expression = operate(parseFloat(operands[0]), "/", parseFloat(operands[1]));
+        expression = (operate(parseFloat(operands[0]), "/", parseFloat(operands[1]))).toString();
     } else { console.log("ERROR: INVALID OPERATOR IN evaluateExpression()") }
 }
 
