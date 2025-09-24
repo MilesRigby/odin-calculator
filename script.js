@@ -1,6 +1,8 @@
 // the arithmetical expression to be displayed in the number-port on the webpage
 let expression = "";
 
+let displayingResult = false;
+
 // The four allowed operators' symbols
 const operators = "+-*/";
 
@@ -10,17 +12,25 @@ const display = document.querySelector("#number-port");
 document.querySelectorAll(".numeral")
     .forEach((element, i) => {
         let n = (i+1)%10;
-        element.addEventListener('click', () =>  addNumeral(n))
+        element.addEventListener('click', () =>  {
+            if (displayingResult) { expression = ""; displayingResult = false; }
+            addNumeral(n)
+        })
     });
 
 // Attach event listeners to operator buttons to allow use of operations +,-,*,/
 document.querySelectorAll(".operator")
     .forEach((element, i) => {
-        element.addEventListener('click', () =>  addOperatorSymbol(operators.split('').at(i)))
+        element.addEventListener('click', () =>  {
+            displayingResult = false;
+            addOperatorSymbol(operators.split('').at(i));
+        })
     });
 
 // Make "=" button evaluate the expression
 document.querySelector("#equals").addEventListener('click', () => {
+    displayingResult = true;
+
     // Check expression is of the form aOb where a and b are numbers and O is a valid operator
     if (operators.split('').reduce((bool, operator) => bool || expression.slice(0,-1).includes(operator), false)) {
         evaluateExpression();
