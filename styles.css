@@ -26,6 +26,7 @@ body {
 
 #display {
     margin-top: 6vh;
+    height: 4vh;
     width: 48vh;
 
     display: flex;
