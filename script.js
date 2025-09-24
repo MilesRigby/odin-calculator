@@ -13,6 +13,13 @@ numeralButtons.forEach((element, i) => {
     element.addEventListener('click', () =>  addNumeral(n))
 });
 
+// Make the C button clear the number port
+document.querySelector("#clear")
+    .addEventListener('click', () => {
+        expression = "";
+        displayExpression();
+    });
+
 // Adds a numeral to the number port
 function addNumeral(numeral) {
     expression = expression + numeral
