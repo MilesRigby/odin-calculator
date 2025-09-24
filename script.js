@@ -3,15 +3,12 @@ let expression = "";
 
 const display = document.querySelector("#number-port");
 
-// List of all the number buttons on the calculator in order of appearance 1-9; 0
-const numeralButtons = document.querySelectorAll(".numeral");
-
-// Attach event listeners to numeral buttons to allow inputting of number values
-numeralButtons.forEach((element, i) => {
-    let n = (i+1)%10;
-
-    element.addEventListener('click', () =>  addNumeral(n))
-});
+// Attach event listeners to numeral buttons to allow the input of number values
+document.querySelectorAll(".numeral")
+    .forEach((element, i) => {
+        let n = (i+1)%10;
+        element.addEventListener('click', () =>  addNumeral(n))
+    });
 
 // Make the C button clear the number port
 document.querySelector("#clear")
@@ -23,6 +20,34 @@ document.querySelector("#clear")
 // Adds a numeral to the number port
 function addNumeral(numeral) {
     expression = expression + numeral
+    displayExpression();
+}
+
+// Adds an operator to the number port
+// If an operator is already present, replaces it if at the end of number port, evaluates existing expression otherwise
+function addOperatorSymbol(operatorSymbol) {
+    
+    // If there is no expression content at all, don't add operator
+    if (expression == "") { return; }
+
+    const operators = "+-*/";
+
+    // If an operator is already present...
+    if (expression.split('').reduce((bool, char) => bool || operators.includes(char), false)) {
+        if (operators.includes(expression.split('').at(-1))) { // If it's the final character
+            expression = expression.slice(0, -1);
+        } else { // If it's earlier in the expression
+            evaluateExpression();
+        }}
+
+    expression = expression + operatorSymbol;
+    displayExpression();
+
+}
+
+function evaluateExpression() {
+    console.log("Evaluation not implemented")
+    expression = "4";
     displayExpression();
 }
 
