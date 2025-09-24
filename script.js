@@ -37,6 +37,9 @@ document.querySelector("#clear")
 
 // Adds a numeral to the number port
 function addNumeral(numeral) {
+    // Disallow if last attempted action was dividing by 0
+    if (expression == "Illegal division!") { return; }
+
     expression = expression.toString() + numeral;
     displayExpression();
 }
@@ -44,6 +47,8 @@ function addNumeral(numeral) {
 // Adds an operator to the number port
 // If an operator is already present, replaces it if at the end of number port, evaluates existing expression otherwise
 function addOperatorSymbol(operatorSymbol) {
+    // Disallow if last attempted action was dividing by 0
+    if (expression == "Illegal division!") { return; }
     
     // If there is no expression content at all, don't add operator
     if (expression == "") { return; }
@@ -80,6 +85,9 @@ function evaluateExpression() {
 
 // displays current arithmetical expression to the number port
 function displayExpression() {
+    // Limit expression to 22 characters (fit within display + below switch to scientific notation)
+    if (expression.length > 22){ expression = expression.slice(0, 22); }
+
     display.textContent = expression;
 }
 
@@ -107,4 +115,4 @@ function operate(a, operator, b) {
 function add(a, b){ return a+b; }
 function sub(a, b){ return a-b; }
 function mult(a, b){ return a*b; }
-function div(a, b){ return a/b; }
+function div(a, b){ return b==0 ? "Illegal division!" : a/b; }
