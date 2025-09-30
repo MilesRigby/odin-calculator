@@ -17,4 +17,4 @@ The equals button evaluates the expression in the display if it is a valid expre
 
 After clicking the equals button, clicking a numeral will automatically clear the display before continuing.
 
-The project instructions suggested truncating/rounding values with many decimal places (e.g. 1/3) however I chose not to implement this feature as I prefer the precision of full decimals (as far as JS allows, whic has its own limits).
+The project instructions suggested truncating/rounding values with many decimal places (e.g. 1/3) however I chose not to implement this feature as I prefer the precision of full decimals (as far as JS allows, which has its own limits).

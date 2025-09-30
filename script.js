@@ -32,7 +32,7 @@ document.querySelector("#equals").addEventListener('click', () => {
     displayingResult = true;
 
     // Check expression is of the form aOb where a and b are numbers and O is a valid operator
-    if (operators.split('').reduce((bool, operator) => bool || expression.slice(0,-1).includes(operator), false)) {
+    if (operators.split('').reduce((bool, operator) => bool || expression.slice(1,-1).includes(operator), false)) {
         evaluateExpression();
         displayExpression();
     }
@@ -67,7 +67,7 @@ function addOperatorSymbol(operatorSymbol) {
     if (expression.split('').reduce((bool, char) => bool || operators.includes(char), false)) {
         if (operators.includes(expression.split('').at(-1))) { // If it's the final character
             expression = expression.slice(0, -1);
-        } else { // If it's earlier in the expression
+        } else if (!operators.includes(expression.split('').at(0))) { // If it's earlier in the expression, but not first (minus signs for negative numbers)
             evaluateExpression();
         }}
 
@@ -81,14 +81,17 @@ function evaluateExpression() {
     if (expression.includes("+")) { 
         operands = expression.split("+");
         expression = (operate(parseFloat(operands[0]), "+", parseFloat(operands[1]))).toString();
-    } else if (expression.includes("-")) { 
+    } else if (expression.slice(1).includes("-")) { 
         operands = expression.split("-");
-        expression = (operate(parseFloat(operands[0]), "-", parseFloat(operands[1]))).toString();
+        if (expression.split('').at(0) == '-') { expression = (operate(-parseFloat(operands[1]), "-", parseFloat(operands[2]))).toString(); }
+        else                                   { expression = (operate( parseFloat(operands[0]), "-", parseFloat(operands[1]))).toString(); }
     } else if (expression.includes("*")) { 
         operands = expression.split("*");
+        console.log(operands);
         expression = (operate(parseFloat(operands[0]), "*", parseFloat(operands[1]))).toString();
     } else if (expression.includes("/")) { 
         operands = expression.split("/");
+        console.log(operands);
         expression = (operate(parseFloat(operands[0]), "/", parseFloat(operands[1]))).toString();
     } else { console.log("ERROR: INVALID OPERATOR IN evaluateExpression()") }
 }
